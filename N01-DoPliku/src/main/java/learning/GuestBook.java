@@ -6,9 +6,8 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class GuestBook {
-	static NoteDAO notedao = new NoteDAO();
-	static final String LOCALFILE = "MiejsceZapisu.txt";
-	static List<Note> list = new ArrayList<>(notedao.load(LOCALFILE));
+    static NoteDAO notedao = new NoteDAO("MiejsceZapisu.txt");
+	static List<Note> list = new ArrayList<>(notedao.getAll());
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -37,7 +36,7 @@ public class GuestBook {
 				showMenu();
 				break;
 			case "z":
-				notedao.save(list,LOCALFILE);
+				notedao.save(list);
 				break;
 			default:
 				System.out.println("Error! Wrong command.");
@@ -93,8 +92,8 @@ public class GuestBook {
 		String odp = sc.nextLine();
 		switch (odp) {
 		 case "tak":
-		    notedao.delete(list,id,LOCALFILE);
-		    list = notedao.load(LOCALFILE);
+		    notedao.delete(list,id);
+		    list = notedao.getAll();
 		 case "nie":
 			return;
 		 default:

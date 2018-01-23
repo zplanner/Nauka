@@ -3,7 +3,6 @@ package learning;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,12 +11,17 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class NoteDAO {
+	private final String filename;
 	
-	public List<Note> load(String fileName){
+	public NoteDAO(String filename) {
+	    this.filename = filename;
+	  }
+	
+	public List<Note> getAll(){
 	    List<Note> list = new ArrayList<>();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		
-		try (Scanner sc = new Scanner(new File(fileName))) {
+		try (Scanner sc = new Scanner(new File(this.filename))) {
 			while (sc.hasNextLine()) {
 				String id = sc.nextLine();
 				String title = sc.nextLine();
@@ -29,17 +33,15 @@ public class NoteDAO {
 				
 				list.add(note);
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+		    throw new RuntimeException("Error!");
 		}
 		return list;
 	}
 	
-	public void save(List<Note> list, String fileName) {
+	public void save(List<Note> list) {
 		System.out.println("Zapisywanie...");
-		try(PrintWriter out = new PrintWriter(fileName)){
+		try(PrintWriter out = new PrintWriter(this.filename)){
 			for (Note note : list) {
 				out.println(note.getId());
 				out.println(note.getTitle());
@@ -53,8 +55,8 @@ public class NoteDAO {
 		System.out.println("Dane zostały zapisane.");
 	}
 	
-	public void delete(List<Note> list, UUID id, String fileName ){
-	    try(PrintWriter out = new PrintWriter(fileName)){
+	public void delete(List<Note> list, UUID id){
+	    try(PrintWriter out = new PrintWriter(this.filename)){
             for (Note note : list) {
                 if(note.getId().equals(id))continue;
                 out.println(note.getId());
