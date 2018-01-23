@@ -3,6 +3,7 @@ package learning;
 import java.util.Scanner;
 
 public class GuessGame {
+	
 	static Scanner sc = new Scanner(System.in);
 	
 	public static void main(String[] args) {
@@ -28,9 +29,9 @@ public class GuessGame {
 			n++;
 			mid = (currentMin+currentMax)/2;
 			System.out.println("Czy twoja liczba to [ "+mid+" ]?");
-			String odp = sc.nextLine();
+			String answer = sc.nextLine();
 		
-		switch(odp) {
+		switch(answer) {
 			case "w":currentMin=mid;break;
 			case "m":currentMax=mid;break;
 			case "tak":System.out.printf("\nOdgadłem za %d razem!",n);return;
