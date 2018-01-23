@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class NoteDAO {
+    
 	private final String filename;
 	
 	public NoteDAO(String filename) {
