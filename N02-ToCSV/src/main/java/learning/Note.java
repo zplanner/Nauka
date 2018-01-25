@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
-public class Note {
+import com.opencsv.bean.CsvBindByName;
 
+public class Note {
+  
   private UUID id;
   private String title;
   private Date date;
@@ -42,7 +44,11 @@ public class Note {
     this.title = title;
   }
 
-  public String getDate() {
+  public Date getDate() {
+    return date;
+  }
+  
+  public String getDateAsString() {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     String dateString = dateFormat.format(date);
     return dateString;
@@ -62,6 +68,6 @@ public class Note {
 
   @Override
   public String toString() {
-    return "Note [id=" + id + ", title=" + title + ", date=" + getDate() + ", comment=" + comment + "]";
+    return "Note [id=" + id + ", title=" + title + ", date=" + getDateAsString() + ", comment=" + comment + "]";
   }
 }

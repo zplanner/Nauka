@@ -3,4 +3,11 @@
   <groupId>learning</groupId>
   <artifactId>N02-ToCSV</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+	<dependency>
+     <groupId>com.opencsv</groupId>
+     <artifactId>opencsv</artifactId>
+     <version>3.9</version>
+    </dependency>
+  </dependencies>
 </project>
