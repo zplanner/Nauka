@@ -56,7 +56,6 @@ public class NoteCSVRepository {
     System.out.println("Dane zostały zapisane.");
   }
 
-  //przyjmowanie tylko id, wczytuje caly plik, usuwa, zapisuje.
   public void delete(UUID id) throws RepositoryException{
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
     try {
@@ -78,8 +77,7 @@ public class NoteCSVRepository {
                n.getTitle(),
                n.getDateAsString(),
                n.getComment()    
-      });
-      //TODO writer.stream.forEach
+      }).forEach(note -> writer.writeNext(note, true));
       writer.flush();
       writer.close();
     } catch (Exception e) {
