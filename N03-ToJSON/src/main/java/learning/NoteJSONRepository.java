@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,38 +22,45 @@ public class NoteJSONRepository {
     this.filename = filename;
   }
 
-  public List<Note> getAll() throws RepositoryException {    
+  public List<Note> getAll() throws RepositoryException {
     Gson gson = new Gson();
     List<Note> list = new ArrayList<>();
-    try {
-      JsonReader reader = new JsonReader(new FileReader(this.filename));
+    try (JsonReader reader = new JsonReader(new FileReader(this.filename))) {
       Note[] notes = gson.fromJson(reader, Note[].class);
       list = Arrays.asList(notes);
     } catch (Exception e) {
-      e.printStackTrace();
+      throw new RepositoryException("Cannot load note!", e);
     }
     return list;
   }
-  
+
   public void save(Note note) throws RepositoryException {
     System.out.println("Zapisywanie...");
-    
     List<Note> list = new ArrayList<>(getAll());
     list.add(note);
+
     try (Writer writer = new FileWriter(this.filename)) {
       Gson gson = new GsonBuilder().create();
-      String noteJson = gson.toJson(list);  
+      String noteJson = gson.toJson(list);
       writer.write(noteJson);
-  } catch (IOException e) {
-    e.printStackTrace();
-  }
-    
+    } catch (IOException e) {
+      throw new RepositoryException("Cannot save note!", e);
+    }
     System.out.println("Dane zostały zapisane.");
   }
 
-  public void delete(UUID id) throws RepositoryException{
-    //TODO
-    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+  public void delete(UUID id) throws RepositoryException {
+    List<Note> list = new ArrayList<>();
+    Gson gson = new GsonBuilder().create();
+    for (Note note : getAll()) {
+      if (!note.getId().equals(id))
+        list.add(note);
+    }
+    try (Writer writer = new FileWriter(this.filename)) {
+      String noteJson = gson.toJson(list);
+      writer.write(noteJson);
+    } catch (IOException e) {
+      throw new RepositoryException("Cannot save note!", e);
+    }
   }
 }
-
