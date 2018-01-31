@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Note Id="bafc75d6-b06d-4074-a66e-b51c7c6d52ef">
-<Title>test1</Title>
-<Date>31-01-2018</Date>
-<Comment>test1</Comment>
-</Note>
+<GuestBook>
+	<Note Id="b98c2d53-6404-441e-bd99-df587b4c1d92">
+		<Title>111</Title>
+		<Date>31-01-2018</Date>
+		<Comment>c111</Comment>
+	</Note>
+	<Note Id="9df1ddb4-8b29-400b-8359-ebc6b46108e8">
+		<Title>222</Title>
+		<Date>31-01-2018</Date>
+		<Comment>c222</Comment>
+	</Note>
+	<Note Id="c7fcca68-8cf5-4088-a192-8a8d2c774bdf">
+		<Title>333</Title>
+		<Date>31-01-2018</Date>
+		<Comment>c333</Comment>
+	</Note>
+</GuestBook>

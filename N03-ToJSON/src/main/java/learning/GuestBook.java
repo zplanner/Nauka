@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class GuestBook {
-  static NoteJSONRepository notecsv = new NoteJSONRepository("AppMemory.json");
+  static NoteJSONRepository notejson = new NoteJSONRepository("AppMemory.json");
   static List<Note> list;
   static Scanner sc = new Scanner(System.in);
 
@@ -56,7 +56,7 @@ public class GuestBook {
   }
 
   static void showList() throws Exception{
-    list = new ArrayList<>(notecsv.getAll());
+    list = new ArrayList<>(notejson.getAll());
     for (Note note : list) {
       System.out.println(note);
     }
@@ -72,7 +72,7 @@ public class GuestBook {
     switch (odp) {
     case "tak":
       Note note = new Note(tytul, tresc);
-      notecsv.save(note);
+      notejson.save(note);
       break;
     case "nie":
       return;
@@ -89,8 +89,8 @@ public class GuestBook {
     String odp = sc.nextLine();
     switch (odp) {
     case "tak":
-      notecsv.delete(id);
-      list = notecsv.getAll();
+      notejson.delete(id);
+      list = notejson.getAll();
     case "nie":
       return;
     default:

@@ -72,12 +72,13 @@ public class NoteCSVRepository {
       reader.close();
       
       CSVWriter writer = new CSVWriter(new FileWriter(this.filename), ';');
-      list.stream().map(n -> new String[] {
+      list.stream()
+          .map(n -> new String[] {
                n.getId().toString(),
                n.getTitle(),
                n.getDateAsString(),
                n.getComment()    
-      }).forEach(note -> writer.writeNext(note, true));
+      })  .forEach(note -> writer.writeNext(note, true));
       writer.flush();
       writer.close();
     } catch (Exception e) {
